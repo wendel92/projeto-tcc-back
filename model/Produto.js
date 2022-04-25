@@ -3,30 +3,30 @@ const Sequelize = require('sequelize')
 const connection = require('../database/database')
 
 const Produto = connection.define('tbl_produto', {
-  id_produto: {
+  id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false,
   },
-  nome_produto: {
+  name_product: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  descricao_produto: {
+  description: {
     type: Sequelize.TEXT,
     allowNull: false,
   },
-  estoque_produto: {
+  stock: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  imagem_produto: {
+  image: {
     type: Sequelize.STRING,
     allowNull: false,
   },
 })
 
-//   Produto.sync({force: true});
+//  Produto.sync({force: true});
 
 module.exports = Produto

@@ -1,72 +1,92 @@
 const express = require('express')
 
-const multer = require('multer')
+const multer = require('multer')  //para as fotos dos produtos 
 
 const produto = require('../model/Produto')
 
+/**
+ * firebase para o armazenamento das fotos 
+ */
+
+const {initializeApp} = require('firebase/app');
+const {getStorage, ref, uploadBytes, deleteObject } = require('firebase/storage');
+
 const router = express.Router()
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './uploads/')
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now().toString() + '_' + file.originalname)
-  },
-}) // esse vai gerenciar o armazenamento
+/**
+ * configurar o firebase para o armazenamento das fotos
+ */
 
-const fileFilter = (req, file, cb) => {
-  if (
-    file.mimetype === 'image/jpg' ||
-    file.mimetype === 'image/jpeg' ||
-    file.mimetype === 'image/png'
-  ) {
-    cb(null, true)
-  } else {
-    cb(null, false)
-  }
-} // vai gerenciar o tipo de arquivo que eu quero que suba
+const firebaseConfig = {
+apiKey: "AIzaSyBgoB4LYgDTOql3gpv-FJjVTcrcCKrM5jg",
+authDomain: "tcc-iluminadas.firebaseapp.com",
+projectId: "tcc-iluminadas",
+storageBucket: "tcc-iluminadas.appspot.com",
+messagingSenderId: "609898365240",
+appId: "1:609898365240:web:64fa6c6ac7d8d7bf7e81cd",
+measurementId: "G-HEE4J524ES"
+}
 
-const upload = multer({
-  storage: storage,
-  limits: {
-    fieldSize: 1024 * 1024 * 5,
-  },
-  fileFilter: fileFilter,
-}) // vai executar o armazenamento
+const firebaseapp = initializeApp(firebaseConfig);
 
-router.post('/produto/cadastrarProduto', (req, res) => {
-  const { nome_produto, descricao_produto } = req.body
 
-  const imagem_produto = req.files[0].path
+const storage = getStorage(firebaseapp);
+// console.log(storage);
 
-  produto
-    .create({
-      nome_produto,
-      descricao_produto,
-      estoque_produto,
-      imagem_produto,
-    })
-    .then(() => {
-      res.send('PRODUTO CADASTRADO')
-    })
+
+const multerFile = multer({
+storage: multer.memoryStorage(),
+limits:{
+  fieldSize: 1024 * 1024 * 5
+}
+});
+
+
+router.post('/cadastrarProduto', multerFile.single('image'), (req, res) => {
+
+
+const file = req.file;
+const fileName = Date.now().toString() + '_' + file.originalname;
+
+console.log(file);
+console.log(fileName);
+
+const fileRef = ref(storage, fileName);
+uploadBytes(fileRef, file.buffer)
+
+const { name_product, description, stock, image } = req.body
+
+produto.create({
+name_product,
+description,
+stock,
+image,
+})
+.then(() => {
+res.send('PRODUTO CADASTRADO')
+})
 })
 
-router.get('/produto/listarProduto', (req, res) => {
-  produto.findAll().then((produtos) => {
-    res.send(produtos)
-  })
+
+
+
+router.get('/listarProduto', (req, res) => {
+produto.findAll().then((produtos) => {
+res.send(produtos)
+})
 })
 
-router.put('/produto/alterarProduto', (req, res) => {
-  produto.update(
-    { nome_produto },
-    { descricao_produto },
-    { estoque_produto },
-    { imagem_produto }
-  )
+router.put('/alterarProduto', (req, res) => {
+produto.update(
+  {
+    name_product,
+    description,
+    stock,
+    image,
+    }
+)
 })
 
-router.delete('/produto/apagarProduto', (req, res) => {})
+router.delete('/apagarProduto', (req, res) => {})
 
 module.exports = router

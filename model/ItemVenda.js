@@ -29,6 +29,6 @@ Itemvenda.belongsTo(Produto, {
   foreignKey: 'fk_itemped_prod',
 })
 
-//  Itemvenda.sync({force:true})
+  //  Itemvenda.sync({force:true})
 
 module.exports = Itemvenda
