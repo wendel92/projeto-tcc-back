@@ -54,7 +54,8 @@ console.log(fileName);
 const fileRef = ref(storage, fileName);
 uploadBytes(fileRef, file.buffer)
 
-const { name_product, description, stock, image } = req.body
+const { name_product, description, stock } = req.body
+const {image} = req.file; 
 
 produto.create({
 name_product,
