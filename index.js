@@ -29,6 +29,9 @@ app.use('/', clienteController)
 const produtoController = require('./controller/ProdutoController')
 app.use('/', produtoController)
 
+// const enderecoController = require('./controller/EnderecoController')
+// app.use('/', enderecoController)
+
 app.listen(8000, () => {
   console.log('Servidor Iniciado')
 })

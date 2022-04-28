@@ -100,17 +100,7 @@ if (cliente == null) {
   return res.status(401).send('Não foi posssível prosseguir com o login!')
 }
 
-//  try{
 
-//     if(await bcrypt.compare(req.body.password, cliente.password) ){
-//         res.send('Você logou com sucesso!')
-//     } else{
-//         res.send('Não foi dessa vez, tente novamente!')
-//     }
-
-//  }catch{
-//     res.status(500).send();
-//  }
 }
 )
 

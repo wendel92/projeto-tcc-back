@@ -4,10 +4,16 @@ const venda = require('../model/Venda')
 
 const router = express.Router()
 
-router.post()
+router.post('/realizarVenda', (req,res)=>{
 
-router.get()
+})
 
-router.put()
+router.get('/listarVenda',(req,res)=>{
+
+})
+
+router.put('/atualizarVenda', (req,res)=>{
+    
+})
 
 

@@ -1,21 +1,21 @@
-const expres = require('express'); 
+// const expres = require('express'); 
 
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
-const cliente = require('./controller/ClienteController'); 
+// const cliente = require('./controller/ClienteController'); 
 
-const users = []; 
+// const users = []; 
 
-const router = expres.Router();
+// const router = expres.Router();
 
-router.post('/login', (req, res)=>{
+// router.post('/login', (req, res)=>{
 
-    try{
+//     try{
 
-        const hash = await bcrypt.hash(password, 6)
+//         const hash = await bcrypt.hash(password, 6)
         
-    } catch{
-        res.status
-    }
+//     } catch{
+//         res.status
+//     }
 
-})
+// })
