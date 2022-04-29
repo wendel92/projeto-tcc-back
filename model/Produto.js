@@ -27,6 +27,6 @@ const Produto = connection.define('tbl_produto', {
   },
 })
 
-//  Produto.sync({force: true});
+  // Produto.sync({force: true});
 
 module.exports = Produto

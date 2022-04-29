@@ -104,7 +104,7 @@ if (cliente == null) {
 }
 )
 
-router.get('/cliente/listarCliente', (req, res) => {
+router.get('/listarCliente', (req, res) => {
 cliente.findAll().then((clientes) => {
 res.send(clientes)
 })
