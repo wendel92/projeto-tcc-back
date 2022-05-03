@@ -2,16 +2,18 @@ const express = require('express');
 
 const multer = require('multer')  //para as fotos dos produtos
 
-const fs = require('fs'); 
+const fs = require('fs'); //manipulação dos arquivos, no caso as imagens 
 
 const app = express();
 
-const produto = require('../model/Produto');
+const produto = require('../model/Produto'); //importação do model 
 
 
 const router = express.Router();
 
 
+
+// vai gerenciar o armazenamento dos arquivos (imagens do produto)
 const storage = multer.diskStorage({
   destination: (req, file, cb) =>{
       cb(null, './uploads/');
@@ -75,7 +77,34 @@ res.send(produtos)
 })
 })
 
-router.put('/alterarProduto', (req, res) => {
+router.put('/alterarProduto',upload.single('file'), (req, res) => {
+
+const {name_product, description, stock, image} = req.body; 
+
+// alteração do produto com a imagem sendo excluida 
+
+if(req.files != ''){
+
+  produto.findByPk(id).then((produto)=>{
+    let image = produto.image; 
+
+    // excluindo a imagem 
+
+    fs.unlink(image, (error)=>{
+      if(error){
+        console.log('Imagem não excluiu, tenta ai dnv' + error)
+      }else{
+        console.log('Deuu certooooo!')
+      }
+    });
+
+      image = req.files.path
+
+  })
+}
+
+// aqui é a atualização dos dados do produto 
+
 produto.update(
 {
   name_product,
