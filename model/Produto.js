@@ -25,6 +25,12 @@ const Produto = connection.define('tbl_produto', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+
+  price_product: {
+    type: Sequelize.FLOAT,
+    allowNull: false
+  }
+
 })
 
   // Produto.sync({force: true});
