@@ -77,6 +77,16 @@ res.send(produtos)
 })
 })
 
+// rota de listar o produto por id 
+
+router.get('/listarProduto/:id ', (req, res) =>{
+
+    let {id} = req.params;
+      produto.findByPk(id).then((produto)=>{
+        res.send(produto)
+      })
+})
+
 router.put('/alterarProduto',upload.single('file'), (req, res) => {
 
 const {name_product, description, stock, image} = req.body; 
@@ -117,6 +127,7 @@ produto.update(
 
 router.delete('/apagarProduto', (req, res) => {
 
+    
     
 
 })

@@ -128,7 +128,7 @@ cliente
 })
 })
 
-router.delete('/cliente/excluirCliente', (req, res) => {
+router.delete('/excluirCliente', (req, res) => {
 let { id } = req.body
 
 cliente.destroy({ where: { id } }).then(() => {

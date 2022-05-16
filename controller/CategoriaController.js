@@ -1,6 +1,7 @@
 const express = require('express')
 
-const categoria = require('../model/Categoria')
+const categoria = require('../model/Categoria');
+// const Cliente = require('../model/Cliente');
 
 const router = express.Router()
 
@@ -20,7 +21,7 @@ router.get('/listarCategoria', (req, res) => {
         categoria.findAll().then((categorias)=>{res.send(categorias)})
 })
 
-router.put('/categoria/alterarCategoria', (req, res) => {
+router.put('/alterarCategoria', (req, res) => {
 
         categoria.update({
             nome_categoria,
@@ -28,8 +29,11 @@ router.put('/categoria/alterarCategoria', (req, res) => {
         })
 })
 
-router.delete('/categoria/apagarCategoria', (req, res) => {
-
+router.delete('/apagarCategoria', (req, res) => {
+        let {id} = req.body;
+            categoria.destroy({where: {id}}).then(()=>{
+                res.send('TOMARA QUE DE CERTOO!')
+            })
 })
 
 module.exports = router;
