@@ -2,7 +2,7 @@ const express = require('express')
 
 const venda = require('../model/Venda')
 
-const cliente = require('../model/Cliente');
+// const cliente = require('../model/Cliente');
 
 
 const router = express.Router()
@@ -35,3 +35,4 @@ router.put('/atualizarVenda', (req,res)=>{
 })
 
 
+module.exports = router; 
