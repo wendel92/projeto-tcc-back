@@ -1,8 +1,10 @@
 const Sequelize = require('sequelize')
 
-const connection = require('../database/database')
+const connection = require('../database/database');
+const Carrinho = require('./Carrinho');
+const Cliente = require('./Cliente');
+const Produto = require('./Produto');
 
-const Cliente = require('./Cliente')
 
 const Venda = connection.define('tbl_venda', {
   id: {
@@ -11,22 +13,15 @@ const Venda = connection.define('tbl_venda', {
     primaryKey: true,
     allowNull: false,
   },
-
-  date: {
-    type: Sequelize.DATE,
-    allowNull: false,
-  },
-  id_venda_cliente: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
 })
 
-Venda.belongsTo(Cliente, {
-  constraint: true,
-  foreignKey: 'fk_ven_cli',
-})
 
+  /** CHAVES ESTRANGEIRAS */
+
+
+  Cliente.hasMany(Venda);
+  Produto.hasMany(Venda); 
+  Carrinho.hasMany(Venda);
 
     // Venda.sync({force: true})
 
