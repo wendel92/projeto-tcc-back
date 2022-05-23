@@ -13,6 +13,10 @@ const Venda = connection.define('tbl_venda', {
     primaryKey: true,
     allowNull: false,
   },
+  total_price: {
+    type: Sequelize.DECIMAL,
+    allowNull: false 
+  },
 })
 
 
