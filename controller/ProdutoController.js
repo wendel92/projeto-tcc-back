@@ -47,7 +47,6 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-/////////////////////////////////////////////////////////////////////////////////
 
 router.post('/cadastrarProduto', upload.single('file'), (req, res) => {
 
@@ -74,8 +73,7 @@ produto.create({
 router.get('/listarProduto', (req, res) => {
 produto.findAll().then((produtos) => {
 res.send(produtos)
-})
-})
+})});
 
 // rota de listar o produto por id 
 
