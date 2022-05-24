@@ -127,9 +127,8 @@ produto.update(
 
 router.delete('/apagarProduto', (req, res) => {
 
-    
-    
-
-})
+   let {id} = req.body;
+    produto.destroy({where: {id}}).then(()=>{res.send('Produto excluído com sucesso!')});    
+});
 
 module.exports = router
