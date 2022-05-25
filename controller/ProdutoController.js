@@ -125,10 +125,13 @@ produto.update(
 )
 })
 
-router.delete('/apagarProduto', (req, res) => {
+router.delete('/apagarProduto/:id', (req, res) => {
 
-   let {id} = req.body;
-    produto.destroy({where: {id}}).then(()=>{res.send('Produto excluído com sucesso!')});    
+   let {id} = req.params;
+      produto.findByPk(id).then((produto)=>{
+        let image = produto.image;
+        
+      })
 });
 
 module.exports = router
