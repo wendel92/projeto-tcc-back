@@ -53,7 +53,7 @@ router.post('/cadastrarProduto', upload.single('file'), (req, res) => {
 console.log(req.file);
 console.log(req.body);
 
-let { name_product, description, stock, tblCategoriumId } = req.body;
+let { name_product, description, stock, tblCategoriumId, price_product } = req.body;
 let image = req.file.path; 
 
 produto.create({
@@ -61,6 +61,7 @@ produto.create({
   description,
   stock,
   image,
+  price_product,
   tblCategoriumId
 })
 .then(() => {
@@ -88,7 +89,7 @@ router.get('/listarProduto/:id ', (req, res) =>{
 
 router.put('/alterarProduto',upload.single('file'), (req, res) => {
 
-const {name_product, description, stock, image, tblCategoriumId} = req.body; 
+const {name_product, description, stock, image, tblCategoriumId, price_product} = req.body; 
 
 // alteração do produto com a imagem sendo excluida 
 
@@ -120,6 +121,7 @@ produto.update(
   description,
   stock,
   image,
+  price_product,
   tblCategoriumId
   }
 )
