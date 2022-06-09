@@ -44,29 +44,19 @@ app.use('/files', express.static(path.resolve(__dirname, "uploads")))
 
 
 
-router.post('/cadastrarProduto', upload.array('files', 1), (req, res) => {
-  console.log(req.files[0].path);
-  console.log(req.body);
+let { name_product, description, stock, tblCategoriumId, price_product } = req.body;
+let image = req.file.path; 
 
-
-
-  const { name_product, description, stock, price_product, tblCategoriumId } = req.body;
-  const image = req.files[0].path;
-  console.log(image); // Teste de envio das Imagens
-
-  produto.create(
-    {
-      name_product,
-      description,
-      stock,
-      price_product,
-      image,
-      tblCategoriumId
-    })
-    .then(() => {
-      res.send('PRODUTO CADASTRADO');
-    }
-  );
+produto.create({
+  name_product,
+  description,
+  stock,
+  image,
+  price_product,
+  tblCategoriumId
+})
+.then(() => {
+  res.send('PRODUTO CADASTRADO')
 });
 
 
@@ -105,9 +95,50 @@ router.put('/alterarProduto', upload.single('file'), (req, res) => {
           console.log('Deuu certooooo!')
         }
       })
+<<<<<<< HEAD
 
       image = req.files.path
     })
+=======
+})
+
+router.put('/alterarProduto',upload.single('file'), (req, res) => {
+
+const {name_product, description, stock, image, tblCategoriumId, price_product} = req.body; 
+
+// alteração do produto com a imagem sendo excluida 
+
+if(req.files != ''){
+
+  produto.findByPk(id).then((produto)=>{
+    let image = produto.image; 
+
+    // excluindo a imagem 
+
+    fs.unlink(image, (error)=>{
+      if(error){
+        console.log('Imagem não excluiu, tenta ai dnv' + error)
+      }else{
+        console.log('Deuu certooooo!')
+      }
+    });
+
+      image = req.files.path
+
+  })
+}
+
+// aqui é a atualização dos dados do produto 
+
+produto.update(
+{
+  name_product,
+  description,
+  stock,
+  image,
+  price_product,
+  tblCategoriumId
+>>>>>>> 09075896486bf277fda473f7fd72abcffe61f069
   }
 
   // aqui é a atualização dos dados do produto
