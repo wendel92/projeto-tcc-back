@@ -2,14 +2,25 @@ const express = require('express')
 const bcryptjs = require('bcryptjs')
 const hash = require('bcryptjs')
 const { body, validationResult } = require('express-validator')
-const request = require('request')
+const request = require('request');    
+// import {initializeApp} from 'firebase/app'; 
+
+
+// const firebaseConfig = {
+
+// };
+
+// const app = initializeApp(firebaseConfig); 
+
+
 
 const cliente = require('../model/Cliente')
-// const { async } = require('@firebase/util')
 const router = express.Router()
 
+
+
 router.post(
-  '/cadastrarCliente',
+  '/cadastrarCliente', 
 
   [
     body('email').isEmail().withMessage('O e-mail precisa ser válido'),
@@ -34,22 +45,24 @@ router.post(
   ],
 
   (req, res) => {
+
     const err = validationResult(req)
 
     if (!err.isEmpty()) {
       return res.status(401).json({ err: err.array() })
     }
 
-    let { name, cpf, phone, email, password } = req.body
+    let { name, cpf, phone, email, password} = req.body
 
-    console.log(req.body)
-    let senha
+    console.log(req.body);
+    let senha;
 
-    bcryptjs.genSalt(10, function (err, salt) {
-      bcryptjs.hash(password, salt, function (err, hash) {
-        password = hash
+    bcryptjs.genSalt(10, function(err, salt) {
+      bcryptjs.hash(password, salt, function(err, hash) {
+          
+          password = hash
 
-        cliente
+          cliente
           .create({
             name,
             cpf,
@@ -60,44 +73,72 @@ router.post(
           .then(() => {
             res.send('Seu cadastro foi efetuado com sucesso!!')
           })
-      })
-    })
+
+      });
+    });
+
   }
+
 )
 
 router.get('/listarCliente', (req, res) => {
-  cliente.findAll().then((clientes) => {
-    res.send(clientes)
-  })
+cliente.findAll().then((clientes) => {
+res.send(clientes)
+})
 })
 
-router.get('/cliente/listarCliente/:id', (req, res) => {
-  let { id } = req.params
+router.get('/listarCliente/:id', (req, res) => {
+let { id } = req.params
 
-  cliente.findByPk(id).then((clienteID) => {
-    res.send(clienteID)
-  })
+cliente.findByPk(id).then((clienteID) => {
+res.send(clienteID)
+})
 })
 
-router.put('/cliente/alterarCliente', (req, res) => {
-  let { id, name, cpf, phone, email, password } = req.body
 
-  cliente
-    .update({ name, cpf, phone, email, password, where: { id } })
-    .then(() => {
-      res.send('TESTE')
-    })
-})
+ router.put('/alterarCliente', (req,res)=>{const err = validationResult(req)
+
+  if (!err.isEmpty()) {
+    return res.status(401).json({ err: err.array() })
+  }
+
+  let { name, cpf, phone, email, password, id} = req.body
+
+  console.log(req.body);
+  let senha;
+
+  bcryptjs.genSalt(10, function(err, salt) {
+    bcryptjs.hash(password, salt, function(err, hash) {
+        
+        password = hash
+
+        cliente
+        .update({
+          name,
+          cpf,
+          phone,
+          email,
+          password,
+        }, {where: {id}})
+        .then(() => {
+          res.send('CADASTRO ATUALIZADO')
+        })
+
+    });
+  });})
+
+
+
 
 router.delete('/excluirCliente', (req, res) => {
-  let { id } = req.body
+let { id } = req.body
 
-  cliente.destroy({ where: { id } }).then(() => {
-    res.send('TESTE')
-  })
+cliente.destroy({ where: { id } }).then(() => {
+res.send('TESTE')
+})
 })
 
 // router.post('/cliente/login', resolver(middleware.autenticacao), resolver(clienteController.login))	// autenticação e login (gera token JWT) do Cliente
 // 	router.delete('/cliente/logout', middleware.autorizacao, resolver(clienteController.logout))
 
-module.exports = router
+module.exports = router;

@@ -40,6 +40,6 @@ const Cliente = connection.define('tbl_cliente', {
   },
 })
 
-//  Cliente.sync({ force: true })
+// Cliente.sync({ force: true })
 
 module.exports = Cliente

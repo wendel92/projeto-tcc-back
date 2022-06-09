@@ -1,16 +1,16 @@
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
 
-const connection = require('../database/database')
+const connection = require('../database/database');
 
 const Categoria = require('./Categoria');
 
 const Produto = connection.define('tbl_produto', {
-  id: {
+  /*id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false,
-  },
+  },*/
   name_product: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -33,12 +33,12 @@ const Produto = connection.define('tbl_produto', {
     allowNull: false
   }
 
-})
+});
 
 // implementação da chave estrangeira 
 
-Categoria.hasMany(Produto); 
+//Categoria.hasMany(Produto); 
 
-  // Produto.sync({force: true});
+ //Produto.sync({force: true});
 
-module.exports = Produto
+module.exports = Produto;
