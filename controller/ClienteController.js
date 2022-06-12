@@ -2,20 +2,12 @@ const express = require('express')
 const bcryptjs = require('bcryptjs')
 const hash = require('bcryptjs')
 const { body, validationResult } = require('express-validator')
-const request = require('request');    
-// import {initializeApp} from 'firebase/app'; 
+const request = require('request');     
+const firebase = require('firebase/app');
+const cliente = require('../model/Cliente');
+const router = express.Router();
+const jwt = require('jsonwebtoken'); 
 
-
-// const firebaseConfig = {
-
-// };
-
-// const app = initializeApp(firebaseConfig); 
-
-
-
-const cliente = require('../model/Cliente')
-const router = express.Router()
 
 
 
@@ -105,7 +97,7 @@ res.send(clienteID)
   let { name, cpf, phone, email, password, id} = req.body
 
   console.log(req.body);
-  let senha;
+  // let senha;
 
   bcryptjs.genSalt(10, function(err, salt) {
     bcryptjs.hash(password, salt, function(err, hash) {
@@ -134,9 +126,17 @@ router.delete('/excluirCliente', (req, res) => {
 let { id } = req.body
 
 cliente.destroy({ where: { id } }).then(() => {
-res.send('TESTE')
+res.send('TESTE')})
 })
+
+
+router.post('/logout', (req,res)=>{
+  res.end()
 })
+
+
+
+
 
 // router.post('/cliente/login', resolver(middleware.autenticacao), resolver(clienteController.login))	// autenticação e login (gera token JWT) do Cliente
 // 	router.delete('/cliente/logout', middleware.autorizacao, resolver(clienteController.logout))

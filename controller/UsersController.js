@@ -4,6 +4,7 @@ const hash = require('bcryptjs');
 const { body, validationResult } = require('express-validator');
 const request = require('request');
 
+
 const cliente = require('../model/Cliente');
 
 const router = express.Router();
@@ -30,7 +31,20 @@ router.post('/login', async (req, res)=>{
     });
 
    
+// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
+// const auth = getAuth();
+// createUserWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed in
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // ..
+//   });
 
 
 module.exports = router; 

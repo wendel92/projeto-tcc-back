@@ -32,6 +32,7 @@ const Cliente = connection.define('tbl_cliente', {
   },
   email: {
     type: Sequelize.STRING,
+    unique: true,
     allowNull: false,
   },
   password: {
@@ -40,6 +41,6 @@ const Cliente = connection.define('tbl_cliente', {
   },
 })
 
-// Cliente.sync({ force: true })
+//  Cliente.sync({ force: true })
 
 module.exports = Cliente
