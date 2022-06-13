@@ -6,7 +6,7 @@ const request = require('request');
 const firebase = require('firebase/app');
 const cliente = require('../model/Cliente');
 const router = express.Router();
-const jwt = require('jsonwebtoken'); 
+// const jwt = require('jsonwebtoken'); 
 
 
 

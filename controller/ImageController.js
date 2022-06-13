@@ -3,7 +3,7 @@ const express = require('express');
 const multer = require('multer')  //para as fotos dos produtos
 
 const {initializeApp} = require('firebase/app');
-const {getStorage, ref, uploadBytes, deleteObject} = require('firebase/storage');
+const {getStorage, ref, uploadBytes, deleteObject, listAll} = require('firebase/storage');
 
 const app = express();
 
@@ -57,6 +57,17 @@ const firebaseConfig = {
     })
 
 });
+
+
+
+router.get('/listarImage/:id', (req,res)=>{
+
+  const listRef = ref(storage, 'file/id')
+
+    Image.listAll(listRef).then((res)=>{res.prefixes.forEach((folderRef)=>{
+
+    })})
+})
   
 
 module.exports = router
